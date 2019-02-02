@@ -67,7 +67,7 @@ mbody2.GetCollisionModel().ClearModel()
 mbody2.GetCollisionModel().AddBox(0.25,0.25,0.25) # must set half sizes
 mbody2.GetCollisionModel().BuildModel()
 mbody2.SetCollide(True)
-ChronoPandaInterface.PandaCube(cpi, mbody2,0.5, WHITE)
+ChronoPandaInterface.PandaCube(cpi, mbody2,0.5, BLACK)
 
 mysystem.Add(mbody2)
 

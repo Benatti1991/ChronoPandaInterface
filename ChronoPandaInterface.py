@@ -70,6 +70,9 @@ class ChronoPandaInterface(ShowBase):
         render.setLight(render.attachNewNode(directionalLight))
         render.setLight(render.attachNewNode(ambientLight))
         
+        
+    """Function called at each step to update rendered bodies positions 
+       according to the position af their respective modelled bodies"""    
     def Update_Pos(self):
            for model, body in zip(self.ModelList, self.ChBodyList) :
                   new_pos = body.GetPos()
@@ -77,7 +80,9 @@ class ChronoPandaInterface(ShowBase):
                   new_ori = body.GetRot()
                   q = Quat(new_ori.e0, new_ori.e1, new_ori.e2, new_ori.e3)
                   model.setQuat(q)
-                  
+
+    """Function used to update the visualization
+    It shouldn't be called at each simulation step"""                    
     def Advance(self):
            
            self.Update_Pos()
@@ -104,7 +109,7 @@ class ChPandaBody(object):
 
     
 class PandaCube(ChPandaBody):
-       model = "models/box"
+       model = "models/cube-3d-shape.blend"
        def __init__(self, CPInterf, chbody, s, color=None):
               ChPandaBody.__init__(self, CPInterf, chbody)
        
