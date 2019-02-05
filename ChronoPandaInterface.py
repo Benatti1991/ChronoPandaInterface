@@ -26,6 +26,8 @@ from direct.gui.OnscreenText import OnscreenText
 from direct.showbase.DirectObject import DirectObject
 from direct.task.Task import Task
 import sys
+import pychrono as chrono
+import math
 
 # First we define some constants for the colors
 BLACK = (0, 0, 0, 1)
@@ -70,6 +72,31 @@ class ChronoPandaInterface(ShowBase):
         render.setLight(render.attachNewNode(directionalLight))
         render.setLight(render.attachNewNode(ambientLight))
         
+        
+    def SetCameraTarg_old(self, targ):
+           
+        camera.lookAt(targ.x, targ.y, targ.z) 
+        ap = camera.getQuat()
+        a = chrono.ChQuaternionD(ap.getR(), ap.getI(), ap.getJ(), ap.getK())
+        b = chrono.ChQuaternionD()
+        b.Q_from_AngAxis(-math.pi/2, a.GetYaxis())
+        qc = b*a
+        q = Quat(qc.e0, qc.e1, qc.e2, qc.e3)
+        #camera.setQuat(q)
+        
+    def SetCamera(self, pos, targ):
+        
+        delta = targ - pos
+        alpha = math.asin(delta.z / delta.Length())
+        if delta.y < 0:
+               alpha = -alpha+math.pi
+        qc0 = chrono.ChQuaternionD()
+        qc0.Q_from_AngAxis(alpha, chrono.VECT_X)
+        b = chrono.ChQuaternionD()
+        b.Q_from_AngAxis(math.pi, qc0.GetYaxis())
+        qc = b*qc0
+        q = Quat(qc.e0, qc.e1, qc.e2, qc.e3)
+        camera.setQuat(q)
         
     """Function called at each step to update rendered bodies positions 
        according to the position af their respective modelled bodies"""    
