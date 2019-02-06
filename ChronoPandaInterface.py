@@ -73,39 +73,24 @@ class ChronoPandaInterface(ShowBase):
         render.setLight(render.attachNewNode(ambientLight))
         
         
-    def SetCameraTarg_old(self, targ):
-           
-        camera.lookAt(targ.x, targ.y, targ.z) 
-        ap = camera.getQuat()
-        a = chrono.ChQuaternionD(ap.getR(), ap.getI(), ap.getJ(), ap.getK())
-        b = chrono.ChQuaternionD()
-        b.Q_from_AngAxis(-math.pi/2, a.GetYaxis())
-        qc = b*a
-        q = Quat(qc.e0, qc.e1, qc.e2, qc.e3)
-        #camera.setQuat(q)
         
     def SetCamera(self, pos, targ):
         
         delta = targ - pos
-        alpha = math.asin(delta.z / delta.Length())
-        if delta.y < 0:
-               alpha = -alpha+math.pi
-        qc0 = chrono.ChQuaternionD()
-        qc0.Q_from_AngAxis(alpha, chrono.VECT_X)
-        if delta.z > 0:
-               
-               b = chrono.ChQuaternionD()
-               b.Q_from_AngAxis(math.pi, qc0.GetYaxis())
-               qc0 = b*qc0
+        q0 = chrono.ChQuaternionD()
+        q0.Q_from_AngAxis(-math.pi/2, chrono.VECT_X)
         
-              
-        beta = math.asin(delta.x / delta.Length())
-        qc2 = chrono.ChQuaternionD()
-        qc2.Q_from_AngAxis(-beta, qc0.GetZaxis())
-        qc =qc2 * qc0
+        alpha = 0   
+        if (delta.z <= 0 and delta.x != 0):
+               alpha = -math.asin(delta.x/math.hypot(delta.x, delta.z))
+        if (delta.z > 0):
+               alpha = math.asin(delta.x/math.hypot(delta.x, delta.z)) + math.pi
+        q1 = chrono.ChQuaternionD()
+        q1.Q_from_AngAxis(alpha, q0.GetZaxis())
+        qc = chrono.ChQuaternionD()
+        qc = q1*q0
         q = Quat(qc.e0, qc.e1, qc.e2, qc.e3)
-        camera.setQuat(q)       
-
+        camera.setQuat(q)
         
     """Function called at each step to update rendered bodies positions 
        according to the position af their respective modelled bodies"""    
