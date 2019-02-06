@@ -92,11 +92,20 @@ class ChronoPandaInterface(ShowBase):
                alpha = -alpha+math.pi
         qc0 = chrono.ChQuaternionD()
         qc0.Q_from_AngAxis(alpha, chrono.VECT_X)
-        b = chrono.ChQuaternionD()
-        b.Q_from_AngAxis(math.pi, qc0.GetYaxis())
-        qc = b*qc0
+        if delta.z > 0:
+               
+               b = chrono.ChQuaternionD()
+               b.Q_from_AngAxis(math.pi, qc0.GetYaxis())
+               qc0 = b*qc0
+        
+              
+        beta = math.asin(delta.x / delta.Length())
+        qc2 = chrono.ChQuaternionD()
+        qc2.Q_from_AngAxis(-beta, qc0.GetZaxis())
+        qc =qc2 * qc0
         q = Quat(qc.e0, qc.e1, qc.e2, qc.e3)
-        camera.setQuat(q)
+        camera.setQuat(q)       
+
         
     """Function called at each step to update rendered bodies positions 
        according to the position af their respective modelled bodies"""    
