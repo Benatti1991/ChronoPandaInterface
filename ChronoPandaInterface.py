@@ -87,8 +87,13 @@ class ChronoPandaInterface(ShowBase):
                alpha = math.asin(delta.x/math.hypot(delta.x, delta.z)) + math.pi
         q1 = chrono.ChQuaternionD()
         q1.Q_from_AngAxis(alpha, q0.GetZaxis())
+        q2 = chrono.ChQuaternionD()
+        q2 = q1*q0
+        beta = math.asin(delta.y/delta.Length())
+        q3 = chrono.ChQuaternionD()
+        q3.Q_from_AngAxis(beta, q2.GetXaxis())
         qc = chrono.ChQuaternionD()
-        qc = q1*q0
+        qc = q3*q2
         q = Quat(qc.e0, qc.e1, qc.e2, qc.e3)
         camera.setQuat(q)
         
