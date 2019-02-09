@@ -25,6 +25,7 @@ import math
 BLACK = (0, 0, 0, 1)
 WHITE = (1, 1, 1, 1)
 GRAY = (0.5, 0.5, 0.5, 1)
+BRICK_ORANGE = (204/255, 102/255, 0, 1)
 
 # ---------------------------------------------------------------------
 #
@@ -94,7 +95,7 @@ for ix in range(0,nbricks_on_x):
         body_brick.SetCollide(True)
 
         # Visualization shape, for rendering animation
-        ChronoPandaInterface.PandaCube(cpi, body_brick,(size_brick_x, size_brick_y, size_brick_z),WHITE)
+        ChronoPandaInterface.PandaCube(cpi, body_brick,(size_brick_x, size_brick_y, size_brick_z),BRICK_ORANGE)
 
 
         my_system.Add(body_brick)
@@ -115,7 +116,7 @@ body_floor.GetCollisionModel().BuildModel()
 body_floor.SetCollide(True)
 
 # Visualization shape
-#ChronoPandaInterface.PandaCube(cpi, body_floor,(6, 2, 6),BLACK)
+ChronoPandaInterface.PandaCube(cpi, body_floor,(6, 2, 6),WHITE)
 
 my_system.Add(body_floor)
 
@@ -172,7 +173,7 @@ link_shaker.SetMotion_Z(mfunZ)
 #  Create an Irrlicht application to visualize the system
 #
 camera_point = chrono.ChVectorD(0,0,0)
-camera_pos = chrono.ChVectorD(0,-5,0)
+camera_pos = chrono.ChVectorD(3,3,3)
 camera_dis =  camera_point - camera_pos 
 
 
