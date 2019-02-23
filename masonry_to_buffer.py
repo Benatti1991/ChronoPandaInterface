@@ -181,7 +181,7 @@ link_shaker.SetMotion_Z(mfunZ)
 #  Create an Irrlicht application to visualize the system
 #
 camera_point = chrono.ChVectorD(0,0,0)
-camera_pos = chrono.ChVectorD(3,-3,3)
+camera_pos = chrono.ChVectorD(3,3,-3)
 camera_dis =  camera_point - camera_pos 
 
 
@@ -197,7 +197,7 @@ t = 0
 steps = 0
 
 
-while(t<0.5):
+while(t<1.5):
     my_system.DoStepDynamics(timestep)
     if (steps%5 == 0):
            texture = cpi.Advance()
@@ -206,7 +206,7 @@ while(t<0.5):
 
            print(len(img_bytes))
            
-           img = Image.frombytes('RGBA', (512,512), img_bytes)
+           img = Image.frombytes('RGBA', (1024,1024), img_bytes)
            img.save("foo.png")# can give any format you like .png
     
     t+= timestep

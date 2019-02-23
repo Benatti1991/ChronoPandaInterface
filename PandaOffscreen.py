@@ -35,7 +35,7 @@ class ChronoPandaInterface(ShowBase):
         # create a window and set up everything we need for rendering into it.
         ShowBase.__init__(self)
         
-        mybuffer =  base.win.makeTextureBuffer("Buffer", 512, 512, to_ram=True)
+        mybuffer =  base.win.makeTextureBuffer("Buffer", 1024, 1024, to_ram=True)
         mytexture = mybuffer.getTexture()
         mybuffer.setSort(-100)
         self.mycamera = base.makeCamera(mybuffer)
@@ -57,8 +57,8 @@ class ChronoPandaInterface(ShowBase):
         directionalLight = DirectionalLight("directionalLight")
         directionalLight.setDirection(LVector3(0, 45, -45))
         directionalLight.setColor((0.2, 0.2, 0.2, 1))
-        render.setLight(render.attachNewNode(directionalLight))
-        render.setLight(render.attachNewNode(ambientLight))
+        self.myscene.setLight(render.attachNewNode(directionalLight))
+        self.myscene.setLight(render.attachNewNode(ambientLight))
         
         
     def SetCamera(self, pos, targ):
