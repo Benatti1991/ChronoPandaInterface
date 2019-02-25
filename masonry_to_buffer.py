@@ -207,6 +207,8 @@ while(t<1.5):
            print(len(img_bytes))
            
            img = Image.frombytes('RGBA', (1024,1024), img_bytes)
+           b, g, r, a = img.split()
+           img = Image.merge("RGBA", (r, g, b, a))
            img.save("foo.png")# can give any format you like .png
     
     t+= timestep
