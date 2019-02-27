@@ -57,7 +57,7 @@ class OnscreenRender(ShowBase):
         
         
         
-    def SetCamera(self, pos, targ):
+    def SetCamera(self, pos, targ=chrono.ChVectorD()):
         
         delta = targ - pos
         q0 = chrono.ChQuaternionD()
@@ -79,6 +79,7 @@ class OnscreenRender(ShowBase):
         qc = q3*q2
         q = Quat(qc.e0, qc.e1, qc.e2, qc.e3)
         camera.setQuat(q)
+        camera.setPos(pos.x, pos.y, pos.z)
         
     """Function called at each step to update rendered bodies positions 
        according to the position af their respective modelled bodies"""    
