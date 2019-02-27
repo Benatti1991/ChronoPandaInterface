@@ -16,9 +16,8 @@ if __name__ == '__main__':
     main()
 
 
-# Load the Chrono::Engine unit and the postprocessing unit!!!
 import pychrono.core as chrono
-#import pychrono.postprocess
+
 import ChronoPandaInterface 
 import math
 
@@ -33,7 +32,7 @@ BRICK_ORANGE = (204/255, 102/255, 0, 1)
 #
 
 my_system = chrono.ChSystemNSC()
-cpi = ChronoPandaInterface.ChronoPandaInterface()
+cpi = ChronoPandaInterface.OnscreenRender()
 
 # Set the default outward/inward shape margins for collision detection,
 # this is epecially important for very large or very small objects.
