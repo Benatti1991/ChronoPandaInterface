@@ -25,7 +25,7 @@ WHITE = (1, 1, 1, 1)
 
 mysystem      = chrono.ChSystemNSC()
 mysystem.Set_G_acc(chrono.ChVectorD(0, 0, -9.81))
-cpi = ChronoPandaInterface.ChronoPandaInterface()
+cpi = ChronoPandaInterface.OnscreenRender()
 # Create a fixed rigid body
 
 chrono.ChCollisionModel.SetDefaultSuggestedEnvelope(0.001)

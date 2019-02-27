@@ -71,7 +71,7 @@ TODO: not properly set.
 class PandaCyilinder(ChPandaBody):
        model = "models/cylinder.obj"
        def __init__(self, CPInterf, chbody, s, color=None):
-              ChPandaBody.__init__(self, CPInterf, chbody)
+              ChPandaBody.__init__(self, CPInterf, chbody, color)
        
               self.obj.setSx(s[0])
               self.obj.setSy(s[2])
