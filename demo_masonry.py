@@ -184,12 +184,12 @@ cpi.SetCamera(camera_pos, camera_point)
 
 #cpi.camera.setPosHpr(0, 0, 4, camera_angle.z, camera_angle.y, camera_angle.x)
 
-timestep = 0.001
+timestep = 0.005
 t = 0
 steps = 0
 
 
-while(t<2):
+while(t<10):
     my_system.DoStepDynamics(timestep)
     if (steps%5 == 0):
            cpi.Advance()
