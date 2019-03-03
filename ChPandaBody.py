@@ -9,10 +9,11 @@ from panda3d.core import LPoint3, LVector3, BitMask32, Quat
 
 
 class ChPandaBody(object):
-    #def __init__(self, CPInterf, chbody , color)
+
     def __init__(self, CPInterf, chbody, color=None):
         self.chbody = chbody
         self.obj = loader.loadModel(self.model)
+        # reparent to render when rendered to screen, to the scen when rendering to texture
         if CPInterf.OnScreen:
                self.obj.reparentTo(render)
         else: 
@@ -53,8 +54,7 @@ class PandaBox(ChPandaBody):
               self.obj.setSy(s[1])
               self.obj.setSz(s[2])
               
-
-  #TODO: not a proper ellipsoid, just a stretched sphere                   
+                 
 class PandaEllipsoid(ChPandaBody):
        model = "models/sphere.blend"
        def __init__(self, CPInterf, chbody, s, color=None):
@@ -66,13 +66,20 @@ class PandaEllipsoid(ChPandaBody):
 
          
 """Cylinder visualization. Set s=(r,h)
-TODO: not properly set. 
 """              
 class PandaCyilinder(ChPandaBody):
        model = "models/cylinder.obj"
        def __init__(self, CPInterf, chbody, s, color=None):
-              ChPandaBody.__init__(self, CPInterf, chbody)
+              ChPandaBody.__init__(self, CPInterf, chbody, color)
        
               self.obj.setSx(s[0])
               self.obj.setSy(s[2])
               self.obj.setSz(s[1])
+
+
+class PandaGenericBody(ChPandaBody):
+       
+       def __init__(self, CPInterf, chbody, path, s=1, color=None):
+              self.model = path
+              ChPandaBody.__init__(self, CPInterf, chbody, color)
+              self.obj.setScale(s)

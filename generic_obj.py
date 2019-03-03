@@ -24,12 +24,12 @@ BLACK = (0, 0, 0, 1)
 WHITE = (1, 1, 1, 1)
 
 mysystem      = chrono.ChSystemNSC()
-mysystem.Set_G_acc(chrono.ChVectorD(0, 0, -9.81))
+
 cpi = ChronoPandaInterface.OnscreenRender()
 # Create a fixed rigid body
 
-chrono.ChCollisionModel.SetDefaultSuggestedEnvelope(0.001)
-chrono.ChCollisionModel.SetDefaultSuggestedMargin(0.001)
+chrono.ChCollisionModel.SetDefaultSuggestedEnvelope(0.005)
+chrono.ChCollisionModel.SetDefaultSuggestedMargin(0.005)
 mysystem.SetMaxItersSolverSpeed(70)
 
 brick_material = chrono.ChMaterialSurfaceNSC()
@@ -57,48 +57,38 @@ mysystem.Add(mbody1)
 
 # Create the falling rigid body
 
-mbody2 = chrono.ChBody()
-mbody2.SetBodyFixed(True)
-mbody2.SetPos( chrono.ChVectorD(0,0,3))
+mbody2 = chrono.ChBodyEasyMesh("fancy_models\pallet.obj", 500, True, True, 0.001, True)
+mysystem.Add(mbody2)
+mbody2.SetBodyFixed(False)
+mbody2.SetPos( chrono.ChVectorD(0,6.5,0))
 
 mbody2.SetMass(1)
 mbody2.SetMaterialSurface(brick_material)
-mbody2.GetCollisionModel().ClearModel()
-mbody2.GetCollisionModel().AddBox(0.5,0.5,0.5) # must set half sizes
-mbody2.GetCollisionModel().BuildModel()
+q = chrono.ChQuaternionD()
+q.Q_from_AngAxis(math.pi/2, chrono.ChVectorD(1,0,0))
+mbody2.SetRot(q)
+
 mbody2.SetCollide(True)
-ChronoPandaInterface.PandaCube(cpi, mbody2,1, WHITE)
 
-#mysystem.Add(mbody2)
+ChronoPandaInterface.PandaGenericBody(cpi, mbody2,'fancy_models\pallet.obj')
 
 
-mbody3 = chrono.ChBody()
-mbody3.SetBodyFixed(False)
-mbody3.SetPos( chrono.ChVectorD(0,0,3))
-
-mbody3.SetMass(1)
-mbody3.SetMaterialSurface(brick_material)
-mbody3.GetCollisionModel().ClearModel()
-mbody3.GetCollisionModel().AddSphere(0.5) # must set half sizes
-mbody3.GetCollisionModel().BuildModel()
-mbody3.SetCollide(True)
-ChronoPandaInterface.PandaSphere(cpi, mbody3,1, BLACK)
-
-mysystem.Add(mbody3)
-
-cpi.camera.setPosHpr(0, -12, 0, 0, 0, 0)
-timestep=0.005
+timestep=0.002
 t =0;
-
+steps=0
 while(t<5):
     mysystem.DoStepDynamics(timestep)
-    cpi.Advance()
-    camera_ref=mbody3.GetPos()
-    #cpi.SetCamera(camera_ref.x, camera_ref.y-2.0, camera_ref.z, 0, 0, 0)
-    #cpi.camera.setPosHpr(camera_ref.x, camera_ref.y-2.0, camera_ref.z, 0, 0, 0)
+    if (steps%5 == 0):
+           cpi.Advance()
+           camera_ref=mbody2.GetPos()
+           camera_orig=mbody2.GetPos()+chrono.ChVectorD(2,-2,-5)
+           # uncomment and comment the other one the follow the sphere with the camera
+           #cpi.camera.setPosHpr(camera_ref.x, camera_ref.y+2.0, camera_ref.z+1, 180, -20, 0)
+           cpi.SetCamera(camera_orig, camera_ref)
 
     
     t+= timestep
+    steps+=1
 
 cpi.destroy()
 
