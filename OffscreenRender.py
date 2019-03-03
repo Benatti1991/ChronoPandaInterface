@@ -26,7 +26,7 @@ class OffscreenRender(ShowBase):
     def __init__(self):
         # Initialize the ShowBase class from which we inherit, which will
         # create a window and set up everything we need for rendering into it.
-        ShowBase.__init__(self)
+        ShowBase.__init__(self, windowType = 'offscreen')
         
         mybuffer =  base.win.makeTextureBuffer("Buffer", 1024, 1024, to_ram=True)
         mytexture = mybuffer.getTexture()
