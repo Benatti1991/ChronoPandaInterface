@@ -17,7 +17,8 @@ from direct.task.Task import Task
 import sys
 import pychrono as chrono
 import math
-
+from panda3d.core import loadPrcFileData
+loadPrcFileData("", "window-type offscreen")
 
 class OffscreenRender(ShowBase):
     OnScreen=False
