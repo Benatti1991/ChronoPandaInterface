@@ -5,8 +5,10 @@ Created on Wed Feb 27 15:01:12 2019
 @author: SB
 """
 import pychrono as chrono
-from panda3d.core import LPoint3, LVector3, BitMask32, Quat
+from panda3d.core import LPoint3, LVector3, BitMask32, Quat, Filename
+import os
 
+abs_path = Filename.fromOsSpecific( os.path.dirname (os.path.realpath(__file__)) )
 
 class ChPandaBody(object):
 
@@ -30,7 +32,7 @@ class ChPandaBody(object):
 
     
 class PandaCube(ChPandaBody):
-       model = "models/cube.blend"
+       model = abs_path+"/models/cube.blend"
        def __init__(self, CPInterf, chbody, s, color=None):
               ChPandaBody.__init__(self, CPInterf, chbody, color)
        
@@ -38,7 +40,7 @@ class PandaCube(ChPandaBody):
 
 
 class PandaSphere(ChPandaBody):
-       model = "models/sphere.blend"
+       model = abs_path+"/models/sphere.blend"
        def __init__(self, CPInterf, chbody, s, color=None):
               ChPandaBody.__init__(self, CPInterf, chbody, color)
        
@@ -46,7 +48,7 @@ class PandaSphere(ChPandaBody):
 
 
 class PandaBox(ChPandaBody):
-       model = "models/cube.blend"
+       model = abs_path+"/models/cube.blend"
        def __init__(self, CPInterf, chbody, s, color=None):
               ChPandaBody.__init__(self, CPInterf, chbody, color)
        
@@ -56,7 +58,7 @@ class PandaBox(ChPandaBody):
               
                  
 class PandaEllipsoid(ChPandaBody):
-       model = "models/sphere.blend"
+       model = abs_path+"/models/sphere.blend"
        def __init__(self, CPInterf, chbody, s, color=None):
               ChPandaBody.__init__(self, CPInterf, chbody, color)
        
@@ -68,7 +70,7 @@ class PandaEllipsoid(ChPandaBody):
 """Cylinder visualization. Set s=(r,h)
 """              
 class PandaCyilinder(ChPandaBody):
-       model = "models/cylinder.obj"
+       model = abs_path+"/models/cylinder.obj"
        def __init__(self, CPInterf, chbody, s, color=None):
               ChPandaBody.__init__(self, CPInterf, chbody, color)
        
