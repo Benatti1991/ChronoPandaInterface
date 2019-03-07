@@ -25,7 +25,7 @@ class OnscreenRender(ShowBase):
     def __init__(self):
         # Initialize the ShowBase class from which we inherit, which will
         # create a window and set up everything we need for rendering into it.
-        ShowBase.__init__(self)
+        ShowBase.__init__(self, windowType = 'onscreen')
 
         # This code puts the standard title and instruction text on screen
         self.title = OnscreenText(text="Project Chrono/Panda3D",
