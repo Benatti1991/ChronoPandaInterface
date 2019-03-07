@@ -103,7 +103,7 @@ for ix in range(0,nbricks_on_x):
         body_brick.SetCollide(True)
 
         # Visualization shape, for rendering animation
-        ChronoPandaInterface.PandaCube(cpi, body_brick,(size_brick_x, size_brick_y, size_brick_z),BRICK_ORANGE)
+        ChronoPandaInterface.PandaBox(cpi, body_brick,(size_brick_x, size_brick_y, size_brick_z),BRICK_ORANGE)
 
 
         my_system.Add(body_brick)
@@ -124,7 +124,7 @@ body_floor.GetCollisionModel().BuildModel()
 body_floor.SetCollide(True)
 
 # Visualization shape
-ChronoPandaInterface.PandaCube(cpi, body_floor,(6, 2, 6),WHITE)
+ChronoPandaInterface.PandaBox(cpi, body_floor,(6, 2, 6),WHITE)
 
 my_system.Add(body_floor)
 
@@ -147,7 +147,7 @@ body_table.GetCollisionModel().BuildModel()
 body_table.SetCollide(True)
 
 # Visualization shape
-ChronoPandaInterface.PandaCube(cpi, body_table,(size_table_x, size_table_y, size_table_z),GRAY)
+ChronoPandaInterface.PandaBox(cpi, body_table,(size_table_x, size_table_y, size_table_z),GRAY)
 
 
 my_system.Add(body_table)
@@ -206,10 +206,10 @@ while(t<1.5):
 
            print(len(img_bytes))
            
-           img = Image.frombytes('RGBA', (1024,1024), img_bytes)
+           img = Image.frombytes('RGBA', (256,256), img_bytes)
            b, g, r, a = img.split()
            img = Image.merge("RGBA", (r, g, b, a))
-           img.save("foo.png")# can give any format you like .png
+           img.save("foo.bmp")# can give any format you like .png
     
     t+= timestep
     steps+=1

@@ -29,7 +29,7 @@ class OffscreenRender(ShowBase):
         # create a window and set up everything we need for rendering into it.
         ShowBase.__init__(self, windowType = 'offscreen')
         
-        mybuffer =  base.win.makeTextureBuffer("Buffer", 1024, 1024, to_ram=True)
+        mybuffer =  base.win.makeTextureBuffer("Buffer", 256, 256, to_ram=True)
         mytexture = mybuffer.getTexture()
         mybuffer.setSort(-100)
         self.mycamera = base.makeCamera(mybuffer)
@@ -99,5 +99,10 @@ class OffscreenRender(ShowBase):
            
            self.Update_Pos()
            self.taskMgr.step()
-           return self.texture 
-           
+           return self.texture
+    
+    def Clear(self):
+           for model in self.ModelList:
+                  model.removeNode()
+           self.ChBodyList = []
+           self.ModelList = []       

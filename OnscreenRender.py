@@ -97,3 +97,10 @@ class OnscreenRender(ShowBase):
            
            self.Update_Pos()
            self.taskMgr.step()
+           
+    def Clear(self):
+           for model in self.ModelList:
+                  model.removeNode()
+           self.ChBodyList = []
+           self.ModelList = []
+                  
