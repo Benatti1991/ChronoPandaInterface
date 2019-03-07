@@ -98,5 +98,10 @@ class OffscreenRender(ShowBase):
            
            self.Update_Pos()
            self.taskMgr.step()
-           return self.texture 
-           
+           return self.texture
+    
+    def Clear(self):
+           for model in self.ModelList:
+                  model.removeNode()
+           self.ChBodyList = []
+           self.ModelList = []       
