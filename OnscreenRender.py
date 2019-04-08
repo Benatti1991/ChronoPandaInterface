@@ -46,12 +46,13 @@ class OnscreenRender(ShowBase):
         self.setupLights()  # Setup default lighting
     
 
-    def setupLights(self):  # This function sets up some default lighting
+    def setupLights(self, direc=(0, 45, -45), point=(0,0,0), color=(0.2, 0.2, 0.2, 1)):  # This function sets up some default lighting
         ambientLight = AmbientLight("ambientLight")
         ambientLight.setColor((.8, .8, .8, 1))
         directionalLight = DirectionalLight("directionalLight")
-        directionalLight.setDirection(LVector3(0, 45, -45))
-        directionalLight.setColor((0.2, 0.2, 0.2, 1))
+        directionalLight.setDirection(LVector3(direc))
+        directionalLight.setPoint(LVector3(point))
+        directionalLight.setColor(color)
         render.setLight(render.attachNewNode(directionalLight))
         render.setLight(render.attachNewNode(ambientLight))
         
